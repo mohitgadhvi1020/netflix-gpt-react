@@ -1,12 +1,12 @@
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
-import { auth } from "../utils/firebase";
-import { addUser, removeUser } from "../utils/userSlice";
-import { toggleGptSearchView } from "../utils/gptSlice";
-import { changeLanguage } from "../utils/configSlice";
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { LOGO, photo_url, SUPPORTED_LANGUAGES } from '../utils/constants';
+import { auth } from '../utils/firebase';
+import { addUser, removeUser } from '../utils/userSlice';
+import { toggleGptSearchView } from '../utils/gptSlice';
+import { changeLanguage } from '../utils/configSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Header = () => {
     signOut(auth)
       .then(() => {})
       .catch((error) => {
-        navigate("/error");
+        navigate('/error');
       });
   };
 
@@ -31,12 +31,12 @@ const Header = () => {
             email: email,
             displayName: displayName,
             photoURL: photoURL,
-          })
+          }),
         );
-        navigate("/browse");
+        navigate('/browse');
       } else {
         dispatch(removeUser());
-        navigate("/");
+        navigate('/');
       }
     });
 
@@ -54,10 +54,10 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
+    <div className="absolute w-full px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
       <img className="w-44 mx-auto md:mx-0" src={LOGO} alt="logo" />
       {user && (
-        <div className="flex p-2 justify-between">
+        <div className="flex p-2 justify-between gap-2 items-center">
           {showGptSearch && (
             <select
               className="p-2 m-2 bg-gray-900 text-white"
@@ -74,12 +74,12 @@ const Header = () => {
             className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg"
             onClick={handleGptSearchClick}
           >
-            {showGptSearch ? "Homepage" : "GPT Search"}
+            {showGptSearch ? 'Homepage' : 'GPT Search'}
           </button>
           <img
-            className="hidden md:block w-12 h-12"
+            className="hidden md:block w-10 h-10 rounded-sm"
             alt="usericon"
-            src={user?.photoURL}
+            src={photo_url}
           />
           <button onClick={handleSignOut} className="font-bold text-white ">
             (Sign Out)
